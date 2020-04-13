@@ -90,7 +90,7 @@ const AppHeader = () => {
       <ul style={customList}>
         <li style={customListItem}>
           <a
-            href='Home'
+            href='/#/profile'
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
