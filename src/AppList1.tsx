@@ -10,7 +10,6 @@ import Badge from '@material-ui/core/Badge';
 import React from 'react'
 import { List, ShowButton, TextField } from 'react-admin'
 // import { Link } from 'react-router-dom'
-import { App } from './api/apps'
 
 const cardStyle = {
   width: 300,
@@ -24,7 +23,7 @@ const tableStyle = {
   borderCollapse: 'collapse',
   width: '100%',
   minWidth: '650px',
-  margin: '20px 0 0'
+  margin: '40px 0 0'
 } as React.CSSProperties;
 
 const tableHeadRowStyle = {
@@ -38,14 +37,7 @@ const tableRowStyle = {
   }
 } as React.CSSProperties;
 
-const tableCellHeadingStyle = {
-  color: '#323232',
-  fontWeight: 600,
-  padding: '20px 15px',
-} as React.CSSProperties;
-
 const tableCellStyle = {
-  color: '#323232',
   padding: '20px 15px',
 } as React.CSSProperties;
 
@@ -86,12 +78,7 @@ const createButtonStyle = {
   color: '#fff',
   '&:hover': {
     backgroundColor: '#4380f4',
-  },
-  textTransform: 'capitalize',
-} as React.CSSProperties;
-
-const deleteIconStlye = {
-  fontSize: 18,
+  }
 } as React.CSSProperties;
 
 interface Data {
@@ -103,7 +90,6 @@ interface Data {
     stack: string
   }
 }
-
 const AppGrid = ({ ids, data }: { ids: string[]; data: Data }) => (
   <div style={{ margin: '1em' }}>
     {ids.map(id => (
@@ -192,72 +178,63 @@ const idsArr=[0,1];
 // the real values are injected by redux-form, react-admin, etc. need to find a better way to do this.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MaybeEmptyDatagrid = (props: any) => {
-    console.log('PROPSSS', props)
-    const {total, data, ids, isLoading, push } = props;
-    
-    if (!isLoading && (ids && ids.length === 0 || total === 0)) {
-      return (
-        <div>
-          No apps yet.
-          <Button
-            variant="raised"
-            color="primary"
-            onClick={() => {
-              push('/apps/create')
-            }}
-          >
-            Create App
-          </Button>
-        </div>
-      )
-    }
-    return (    
+  const {total, data, ids, isLoading, push } = props;
+  console.log('PROPSSS', props)
+  if (!isLoading && (ids && ids.length === 0 || total === 0)) {
+    return (
       <div>
-        <MainHeader />
-        <table style={tableStyle}>
-          <thead>
-            <tr style={tableHeadRowStyle}>
-              <th style={tableCellHeadingStyle} align="left">App Name</th>
-              <th style={tableCellHeadingStyle}>Cloud</th>
-              <th style={tableCellHeadingStyle}>Region</th>
-              <th style={tableCellHeadingStyle}>Stack</th>
-              <th style={tableCellHeadingStyle}>Size</th>
-              <th style={tableCellHeadingStyle}>Replica</th>
-              <th style={tableCellHeadingStyle}>&nbsp;</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {ids && ids.map( (index: number) => {
-              const app: App = data[index]
-              return (
-              <tr
-                key={index}
-                style={tableRowStyle}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#eaeaea')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
-              >
-                <td style={tableCellStyle}>{data[index].id}</td>
-                <td style={tableCellStyle} align="center">{data[index].cloud}</td>
-                <td style={tableCellStyle} align="center">{data[index].region}</td>
-                <td style={tableCellStyle} align="center">{data[index].stack}</td>
-                <td style={tableCellStyle} align="center">
-                  <Badge badgeContent={data[index].size} color="primary"> </Badge>
-                </td>
-                <td style={tableCellStyle} align="center">
-                  <Badge badgeContent={data[index].replicas} color="secondary"> </Badge>
-                </td>
-                <td style={tableCellStyle} align="right">
-                  <Button size="small" style={deleteButtonStyle}>
-                    <DeleteIcon style={deleteIconStlye} />Delete
-                  </Button>
-                </td>
-              </tr>
-            )})}
-          </tbody>
-        </table>
+        No apps yet.
+        <Button
+          variant="raised"
+          color="primary"
+          onClick={() => {
+            push('/apps/create')
+          }}
+        >
+          Create App
+        </Button>
       </div>
     )
+  }
+  return (
+    <div>
+      <MainHeader />
+      <table style={tableStyle}>
+        <thead>
+          <tr style={tableHeadRowStyle}>
+            <th style={tableCellStyle} align="left">App Name</th>
+            <th style={tableCellStyle}>Cloud</th>
+            <th style={tableCellStyle}>Region</th>
+            <th style={tableCellStyle}>Stack</th>
+            <th style={tableCellStyle}>Size</th>
+            <th style={tableCellStyle}>Replica</th>
+            <th style={tableCellStyle}>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {idsArr && idsArr.map( (index: number) => (
+            <tr key={index} style={tableRowStyle}>
+              <td style={tableCellStyle}>{dataList[index].unique_name}</td>
+              <td style={tableCellStyle} align="center">{dataList[index].cloud}</td>
+              <td style={tableCellStyle} align="center">{dataList[index].region}</td>
+              <td style={tableCellStyle} align="center">{dataList[index].stack}</td>
+              <td style={tableCellStyle} align="center">
+                <Badge badgeContent={dataList[index].size} color="primary"> </Badge>
+              </td>
+              <td style={tableCellStyle} align="center">
+                <Badge badgeContent={dataList[index].replicas} color="secondary"> </Badge>
+              </td>
+              <td style={tableCellStyle} align="right">
+                <Button size="small" style={deleteButtonStyle}>
+                  <DeleteIcon style={{ fontSize: 18 }} />Delete
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 // TODO: is it considered bad form to have a connected component inside a connected component?
@@ -271,9 +248,10 @@ const ConnectedMaybeEmptyDatagrid = connect(null, {
 const AppList = (props: any) => {
   console.log('pppp', props)
   return (
-    <List title="All apps" pagination={null} bulkActions={false} {...props}>
+    <div {...props}>
+     {/* <AppGrid /> */}
      <ConnectedMaybeEmptyDatagrid />
-    </List>
+    </div>
   )
 }
 
