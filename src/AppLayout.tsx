@@ -38,8 +38,7 @@ class MyUserMenuView extends Component<{
 
   public render() {
     return (
-      <div>
-       </div>
+      <div></div>
     )
   }
 }
@@ -62,6 +61,6 @@ const MyUserMenu = connect(mapStateToProps, { getOne: crudGetOne })(
 
 const MyAppBar = (props: {}) => <AppBar {...props} userMenu={<MyUserMenu />} />
 // const MyLayout = (props: {}) => <Layout {...props} appBar={MyAppBar} />
-const MyLayout = (props: {}) => <Layout {...props} title={'test'} appBar={AppHeader} sidebar={AppSideBar} />;
+const MyLayout = (props: {}) => <Layout className="custom-layout" {...props} title={'test'} appBar={AppHeader} sidebar={AppSideBar} />;
 
 export default MyLayout

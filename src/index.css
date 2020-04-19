@@ -8,3 +8,41 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+
+.main-header{
+	border-bottom: 2px solid #cdcdcd !important;
+}
+.custom-sidebar > a:hover,
+.custom-sidebar > a[class*="active"]{
+	color: #fff;
+	background-color: #216dff;
+}
+.custom-layout header.table-header h1{
+	margin: 0 0 28px !important;
+}
+.custom-layout header.table-header{
+	border-bottom: 2px solid #cdcdcd;
+}
+.custom-layout main{
+	padding: 20px;
+}
+.custom-layout main .MuiPaper-elevation1-59{
+	box-shadow: none;
+	background-color: transparent;
+}
+.custom-layout .Layout-content-4{
+	padding: 17px 35px 20px !important;
+}
+.custom-layout .table-header .table-header-top{
+	border-bottom: 2px solid #cdcdcd !important;
+}
+.custom-layout .table-header .table-header-bottom{
+	padding: 35px 0 35px 35px !important;
+}
+.custom-layout .custom-table-holder{
+	padding: 0 0 0 20px;
+}
+
+/*MenuItemLink-active-36
+*/

@@ -12,6 +12,9 @@ import { List, ShowButton, TextField } from 'react-admin'
 // import { Link } from 'react-router-dom'
 import { App } from './api/apps'
 
+
+
+
 const cardStyle = {
   width: 300,
   minHeight: 300,
@@ -94,6 +97,55 @@ const deleteIconStlye = {
   fontSize: 18,
 } as React.CSSProperties;
 
+const customBadgeStlye1 = {
+  fontSize: '13px',
+  lineHeight: '15px',
+  color: '#fff',
+  backgroundColor: '#3f51b5',
+  borderRadius: '4px',
+  padding: '4px 8px',
+} as React.CSSProperties;
+
+const customBadgeStlye2 = {
+  fontSize: '13px',
+  lineHeight: '15px',
+  color: '#fff',
+  backgroundColor: '#2196f3',
+  borderRadius: '4px',
+  padding: '4px 8px',
+} as React.CSSProperties;
+
+const customBadgeStlye3 = {
+  fontSize: '13px',
+  lineHeight: '15px',
+  color: '#fff',
+  backgroundColor: '#ffa800',
+  borderRadius: '4px',
+  padding: '4px 8px',
+} as React.CSSProperties;
+
+const customBadgeStlye4 = {
+  fontSize: '13px',
+  lineHeight: '15px',
+  color: '#fff',
+  backgroundColor: '#5fc52d',
+  borderRadius: '4px',
+  padding: '4px 8px',
+} as React.CSSProperties;
+
+const customBadgeStlye5 = {
+  fontSize: '13px',
+  lineHeight: '15px',
+  color: '#fff',
+  backgroundColor: '#ed6c6c',
+  borderRadius: '4px',
+  padding: '4px 8px',
+} as React.CSSProperties;
+
+
+
+
+
 interface Data {
   [id: string]: {
     replicas: number
@@ -132,17 +184,17 @@ AppGrid.defaultProps = {
 
 const MainHeader = (props: any) => {
   return (
-    <div>
-      <header>
-        <div style={tableHeaderTop}>
+    <React.Fragment>
+      <header className="table-header">
+        <div className="table-header-top" style={tableHeaderTop}>
           <h1 style={topHeading}>Dashboard</h1>
         </div>
-        <div style={tableHeaderBottom}>
+        <div className="table-header-bottom" style={tableHeaderBottom}>
           <h2 style={topHeading2}>All Apps</h2>
           <Button variant="contained" style={createButtonStyle}>+ Create</Button>
         </div>
       </header>
-    </div>
+    </React.Fragment>
   );
 }
 
@@ -187,6 +239,8 @@ const dataList = [
 
 const idsArr=[0,1];
 
+
+
 // setting props properly here is hard because 1) there are a ton of props that react-admin injects for us
 // and 2) any props defined here need to be specified below, but we would just be putting dummy values in
 // the real values are injected by redux-form, react-admin, etc. need to find a better way to do this.
@@ -194,7 +248,7 @@ const idsArr=[0,1];
 const MaybeEmptyDatagrid = (props: any) => {
     console.log('PROPSSS', props)
     const {total, data, ids, isLoading, push } = props;
-    
+
     if (!isLoading && (ids && ids.length === 0 || total === 0)) {
       return (
         <div>
@@ -212,51 +266,53 @@ const MaybeEmptyDatagrid = (props: any) => {
       )
     }
     return (    
-      <div>
+      <React.Fragment>
         <MainHeader />
-        <table style={tableStyle}>
-          <thead>
-            <tr style={tableHeadRowStyle}>
-              <th style={tableCellHeadingStyle} align="left">App Name</th>
-              <th style={tableCellHeadingStyle}>Cloud</th>
-              <th style={tableCellHeadingStyle}>Region</th>
-              <th style={tableCellHeadingStyle}>Stack</th>
-              <th style={tableCellHeadingStyle}>Size</th>
-              <th style={tableCellHeadingStyle}>Replica</th>
-              <th style={tableCellHeadingStyle}>&nbsp;</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {ids && ids.map( (index: number) => {
-              const app: App = data[index]
-              return (
-              <tr
-                key={index}
-                style={tableRowStyle}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#eaeaea')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
-              >
-                <td style={tableCellStyle}>{data[index].id}</td>
-                <td style={tableCellStyle} align="center">{data[index].cloud}</td>
-                <td style={tableCellStyle} align="center">{data[index].region}</td>
-                <td style={tableCellStyle} align="center">{data[index].stack}</td>
-                <td style={tableCellStyle} align="center">
-                  <Badge badgeContent={data[index].size} color="primary"> </Badge>
-                </td>
-                <td style={tableCellStyle} align="center">
-                  <Badge badgeContent={data[index].replicas} color="secondary"> </Badge>
-                </td>
-                <td style={tableCellStyle} align="right">
-                  <Button size="small" style={deleteButtonStyle}>
-                    <DeleteIcon style={deleteIconStlye} />Delete
-                  </Button>
-                </td>
+        <div className="custom-table-holder">
+          <table style={tableStyle}>
+            <thead>
+              <tr style={tableHeadRowStyle}>
+                <th style={tableCellHeadingStyle} align="left">App Name</th>
+                <th style={tableCellHeadingStyle}>Cloud</th>
+                <th style={tableCellHeadingStyle}>Region</th>
+                <th style={tableCellHeadingStyle}>Stack</th>
+                <th style={tableCellHeadingStyle}>Size</th>
+                <th style={tableCellHeadingStyle}>Replica</th>
+                <th style={tableCellHeadingStyle}>&nbsp;</th>
               </tr>
-            )})}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+
+            <tbody>
+              {ids && ids.map( (index: number) => {
+                const app: App = data[index]
+                return (
+                <tr
+                  key={index}
+                  style={tableRowStyle}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#eaeaea')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
+                >
+                  <td style={tableCellStyle}>{data[index].id}</td>
+                  <td style={tableCellStyle} align="center">{data[index].cloud}</td>
+                  <td style={tableCellStyle} align="center">{data[index].region}</td>
+                  <td style={tableCellStyle} align="center">{data[index].stack}</td>
+                  <td style={tableCellStyle} align="center">
+                    <span style={customBadgeStlye4}>{data[index].size}</span>
+                  </td>
+                  <td style={tableCellStyle} align="center">
+                    <span style={customBadgeStlye5}>{data[index].replicas}</span>
+                  </td>
+                  <td style={tableCellStyle} align="right">
+                    <Button size="small" style={deleteButtonStyle}>
+                      <DeleteIcon style={deleteIconStlye} />Delete
+                    </Button>
+                  </td>
+                </tr>
+              )})}
+            </tbody>
+          </table>
+        </div>
+      </React.Fragment>
     )
 }
 

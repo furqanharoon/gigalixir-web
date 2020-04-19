@@ -85,7 +85,7 @@ const AppHeader = () => {
   };
 
   return (
-    <header style={header}>
+    <header className="main-header" style={header}>
       {<a style={LogoStyle} href='/#/profile'><img style={LogoImageStyle} src={'http://gigalixir-home.gigalixirapp.com/images/gigalixir_logo.png'} alt='Logo' /></a>}
       <ul style={customList}>
         <li style={customListItem}>
