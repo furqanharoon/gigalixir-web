@@ -5,7 +5,6 @@ import {
   crudGetOne,
 } from 'react-admin'
 import { connect } from 'react-redux'
-import AccountCircle from '@material-ui/icons/AccountCircle'
 import { AppShow, AppHeader, AppSideBar } from './apps'
 
 

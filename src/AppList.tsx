@@ -6,13 +6,10 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import DeleteIcon from '@material-ui/icons/Delete';
-import Badge from '@material-ui/core/Badge';
 import React from 'react'
 import { List, ShowButton, TextField } from 'react-admin'
 // import { Link } from 'react-router-dom'
 import { App } from './api/apps'
-
-
 
 
 const cardStyle = {
@@ -97,33 +94,6 @@ const deleteIconStlye = {
   fontSize: 18,
 } as React.CSSProperties;
 
-const customBadgeStlye1 = {
-  fontSize: '13px',
-  lineHeight: '15px',
-  color: '#fff',
-  backgroundColor: '#3f51b5',
-  borderRadius: '4px',
-  padding: '4px 8px',
-} as React.CSSProperties;
-
-const customBadgeStlye2 = {
-  fontSize: '13px',
-  lineHeight: '15px',
-  color: '#fff',
-  backgroundColor: '#2196f3',
-  borderRadius: '4px',
-  padding: '4px 8px',
-} as React.CSSProperties;
-
-const customBadgeStlye3 = {
-  fontSize: '13px',
-  lineHeight: '15px',
-  color: '#fff',
-  backgroundColor: '#ffa800',
-  borderRadius: '4px',
-  padding: '4px 8px',
-} as React.CSSProperties;
-
 const customBadgeStlye4 = {
   fontSize: '13px',
   lineHeight: '15px',
@@ -141,9 +111,6 @@ const customBadgeStlye5 = {
   borderRadius: '4px',
   padding: '4px 8px',
 } as React.CSSProperties;
-
-
-
 
 
 interface Data {
@@ -216,29 +183,6 @@ interface DataNew {
     unique_name: string
   }
 }
-const dataList = [
-  {
-    id: 1,
-    unique_name: 'fake-app',
-    stack: 'gigalixir-18',
-    size: 1.0,
-    replicas: 1,
-    region: 'v2018-us-central1',
-    cloud: 'gcp'
-  },
-  {
-    id: 2,
-    unique_name: 'fake-app',
-    stack: 'gigalixir-18',
-    size: 1.0,
-    replicas: 1,
-    region: 'v2018-us-central1',
-    cloud: 'gcp'
-   }
-];
-
-const idsArr=[0,1];
-
 
 
 // setting props properly here is hard because 1) there are a ton of props that react-admin injects for us
@@ -246,7 +190,6 @@ const idsArr=[0,1];
 // the real values are injected by redux-form, react-admin, etc. need to find a better way to do this.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MaybeEmptyDatagrid = (props: any) => {
-    console.log('PROPSSS', props)
     const {total, data, ids, isLoading, push } = props;
 
     if (!isLoading && (ids && ids.length === 0 || total === 0)) {
@@ -324,8 +267,7 @@ const ConnectedMaybeEmptyDatagrid = connect(null, {
   ids: [],
 })(MaybeEmptyDatagrid)
 
-const AppList = (props: any) => {
-  console.log('pppp', props)
+const AppList = (props: ListProps) => {
   return (
     <List title="All apps" pagination={null} bulkActions={false} {...props}>
      <ConnectedMaybeEmptyDatagrid />
